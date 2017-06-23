@@ -1,0 +1,12 @@
+I2C_ACCESS
+==========
+
+This is a small utility for providing access to the i2c interface.
+
+i2c-tools is SMBus specific where I2C transactions are assumed to be register based.
+
+This utility allows raw i2c reads and writes, and optionally combining into two concatenated 
+transactions.
+
+---
+JamesCC @ 23jun2017

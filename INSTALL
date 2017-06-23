@@ -1,0 +1,160 @@
+BUILDING, INSTALLING, DEBUGGING i2c_access
+==========================================
+
+This is a small utility for providing access to the i2c interface.
+
+Its interface is entirely command line.
+
+The project is built using autotools.
+
+
+Autotools
+---------
+
+Autotools is a build environment for C which aids writing Makefiles, and facilitates portability.
+Once understood it is very easy to alter the infrastructure, allowing the developer to focus on the
+source code, documentation, and test development.
+
+An autotools project can in four states:
+
+"Fresh out of a Repository" - where you will need to run autotools to create the necessary
+setup files to describe your project.  A configure script will be created for configuring the
+project for different platforms.
+
+"Source Distributable" - after running autotools you have a project that can be packages and
+distributed as source.  This source then expects ./configure to be run to create the necessary
+Makefiles.
+
+"Configured and Buildable - Now with the Makefiles we can build the code using make and create some
+"binaries.
+
+"Test and Installable" - Now built the code can be tested, and it can be installed at a fixed
+location.
+
+
+COMMAND by COMMAND
+==================
+
+Dependencies
+------------
+
+This software has dependencies which will need to be installed.  The installation method will vary
+from system to system.
+
+For building under Ubuntu 16.04 this is achieved by:
+
+    sudo apt-get install automake
+
+GNU automake is used to build the software.
+
+Optionally astyle and pmccabe can be installed to allow automatic styling and complexity measurement.
+
+
+Initial Setup
+-------------
+
+Okay you have your project fresh out of the repository.
+
+Type
+
+    ./autogen.sh
+
+This runs autotools and initialises a project creating the setup files.
+
+You now have a "Source Distributable" project.  You could just follow the instruction in the INSTALL
+file, but keeping reading if you want to cut to the chase!
+
+
+Building
+--------
+
+The process is to run `./configure` and then run make as normal.
+
+Lets build it for running on a host Linux x86 system...
+
+    ./configure
+    make
+
+The source code is in `src`, and uses glib - a library which is used in many linux projects (it is
+provided by the gnome project).  glib has convient functions to aid common things such as option
+parsing.
+
+The resulting executables are in ./src
+
+
+For compiling for the target you will need to run...
+
+    . /opt/rd-dvc2-sdk/env*                 # cross compiler setup
+    ./configure --target=arm-poky-linux-gnueabi --host=arm-poky-linux-gnueabi --build=x86_64-linux
+    make
+
+Again the resulting executables are in ./src
+
+
+When swapping between target and host builds `make distclean` before you run the ./configure script
+again.  This cleans out the old object files/executables, prevent misbuilds.  e.g.
+
+    make distclean
+    ./configure
+    make
+
+
+Cleaning
+--------
+
+If you want to clean the project (back to state just after running "configure")...
+
+    make clean
+
+Or very clean (removing the affect of running "configure")...
+
+    make distclean
+
+Or sparkling (removing the affect of running autogen.sh)...
+
+    make maintainer-clean
+
+
+Installing and Distributing
+---------------------------
+
+To create an installation (binary) tarball that should be unpacked from / (root) use the
+command...
+
+    make install-tgz
+
+Lastly perhaps you want to distribute the source code.
+
+    make dist
+
+This creates a tarball (tgz archive) of your "Source Distributable" project - you don't need to
+clean to create this.  There are other source code distribution archive formats available, but
+tgz is the most common.
+
+
+Other Handy Facilities
+----------------------
+
+You can make tags files for unix style editors (emacs, vi, vim, nedit, and many new editors) with
+the correct make target below...
+
+    make tags
+    make ctags
+    make TAGS
+    make GTAGS
+    make cscope
+
+This helps the editor lookup function and variable definitions/declarations.  You'll need either
+ctags installed or cscope and an editor that supports one of those.
+
+
+You can apply code styling using astyle (see CODING-STYLE) to keep any changes in line with the
+project's coding style.  Requires astyle `apt-get install astyle`.
+
+    make astyle
+
+
+You can see complexity measurements.  Requires pmccabe `apt-get install pmccabe`.
+
+    make pmccabe
+
