@@ -28,6 +28,7 @@ stamp-h1
 *.a
 .deps
 *.tar*
+*.tgz
 *.zip
 *.lo
 *.gcno
