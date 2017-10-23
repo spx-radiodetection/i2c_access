@@ -111,7 +111,7 @@ int main (int argc, char *argv[])
     }
     param_idx++;
 
-    if (i2c_read_size > sizeof(i2c_read_buf)) {
+    if (i2c_read_size > (signed)sizeof(i2c_read_buf)) {
         g_printerr ("Aborted - Read size is limited to %d bytes\n", sizeof(i2c_read_buf));
         exit (EXIT_FAILURE);
     }
@@ -125,7 +125,7 @@ int main (int argc, char *argv[])
         i2c_write_buf[i2c_write_payload_size] = (guchar) data;
         i2c_write_payload_size++;
         param_idx++;
-        if (i2c_write_payload_size >= sizeof(i2c_write_buf)) {
+        if (i2c_write_payload_size >= (signed)sizeof(i2c_write_buf)) {
             g_printerr ("Aborted - Write size is limited to %d bytes\n", sizeof(i2c_write_buf));
             exit (EXIT_FAILURE);
         }
@@ -209,7 +209,7 @@ int main (int argc, char *argv[])
                 for (ii = 0; ii < i2c_read_size; ii++) {
                     g_print (" 0x%02x", (unsigned)i2c_read_buf[ii]);
                 }
-                if (ii > 0) g_printerr ("\n");
+                if (ii > 0) g_print ("\n");
             }
 
             close (i2c_file);

@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([i2c_access], [1.1], [james.covey-crump@spx.com])
+AC_INIT([i2c_access], [1.2], [james.covey-crump@spx.com])
 AC_CONFIG_SRCDIR([src/i2c_access.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
