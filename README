@@ -8,5 +8,30 @@ i2c-tools is SMBus specific where I2C transactions are assumed to be register ba
 This utility allows raw i2c reads and writes, and optionally combining into two concatenated 
 transactions.
 
----
-JamesCC @ 23jun2017
+
+    user@rd-imx6:~# i2c_access --help
+    Usage:
+      i2c_access [OPTION...] <i2c-dev-node> <addr> [byte0 [byte1 [...]]]
+
+    Performs simple reads and writes to 7bit i2c addresses.
+
+    Help Options:
+      -h, --help                Show help options
+
+    Application Options:
+      --version                 output version
+      -v, --verbose             print what is happening
+      --dry-run                 don't execute
+      -r, --read=bytes2read     perform i2c read (in bytes)
+      -f, --force               access i2c devices controlled by a driver
+
+    Examples:
+      i2c_access /dev/i2c-0 0x2b 1 184 255     # i2c write of 1 184 255 to 0x2b on /dev/i2c-0
+      i2c_access /dev/i2c-0 0x68 3 -r 1 -f     # i2c write of 3 to 0x68, follow by 1 byte read, forced
+      i2c_access /dev/i2c-0 0x29 -r 2          # i2c read of 2 bytes from 0x29
+
+    For issues contact james.covey-crump@spx.com
+
+
+For building and installing see the INSTALL file.
+

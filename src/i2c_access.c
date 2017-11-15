@@ -5,7 +5,7 @@
  *
  *  @author James Covey-Crump
  *
- *  @copyright 2016 Radiodetection Limited.  All rights reserved.
+ *  @copyright 2016 Radiodetection Limited.  Licensed under the MIT license.
  */
 
 #include <glib.h>

@@ -81,10 +81,21 @@ parsing.
 
 The resulting executables are in ./src
 
+For building on an embedded system (cross compiling) you'll need to setup configure to use the
+cross compiler.
 
-For compiling for the target you will need to run...
+For iMX6, if you've used the Freescale Community YOCTO build (fslc) there is a helper script that
+configures the necessary environment variables for you.  This will be part of the SDK created with
+populate_sdk, but cross compilation with other compilers is fine as long as you set your path
+and usual compiler environment vars like CC, LD, ...
 
+So for compiling for the target you will need to run...
+
+    # Source your cross-compiler environment script.
+    # In this case the YOCTO built SDK was installed to /opt/rd-dvc2-sdk
     . /opt/rd-dvc2-sdk/env*                 # cross compiler setup
+
+    # then run configure with the cross compiler options
     ./configure --target=arm-poky-linux-gnueabi --host=arm-poky-linux-gnueabi --build=x86_64-linux
     make
 
